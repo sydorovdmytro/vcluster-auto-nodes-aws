@@ -57,8 +57,7 @@ resource "aws_instance" "this" {
   metadata_options {
     http_endpoint               = "enabled"
     http_tokens                 = "required"
-    # Two hops so pods such as the EBS CSI driver can use the instance profile.
-    http_put_response_hop_limit = 2
+    http_put_response_hop_limit = 1 # Restrict IMDS to host network
   }
 
   iam_instance_profile = local.instance_profile_name
